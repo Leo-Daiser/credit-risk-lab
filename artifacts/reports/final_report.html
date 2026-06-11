@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk Research Lab - Final Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #7f8c8d; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .metric { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .warning { background: #fff3cd; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; }
+        .success { background: #d4edda; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Model Training Report</h1>
+<h2>Model Comparison</h2>
+<table>
+<tr><td>Model</td><td>ROC-AUC</td><td>PR-AUC</td><td>F1</td><td>Precision</td><td>Recall</td><td>Brier Score</td></tr>
+<tr><td>logistic_regression</td><td>0.5724</td><td>0.6233</td><td>0.5598</td><td>0.6154</td><td>0.5134</td><td>0.2466</td></tr>
+<tr><td>random_forest</td><td>0.5361</td><td>0.6012</td><td>0.6472</td><td>0.5680</td><td>0.7522</td><td>0.2485</td></tr>
+<tr><td>gradient_boosting</td><td>0.5426</td><td>0.5996</td><td>0.6377</td><td>0.5722</td><td>0.7201</td><td>0.2513</td></tr>
+</table>
+<h2>Selected Model</h2>
+<p>**unknown** selected based on PR-AUC (primary metric for imbalanced datasets).</p>
+<h2>Metrics Interpretation</h2>
+<ul>
+<li>**ROC-AUC (0.5724)**: Measures ability to distinguish between classes. 1.0 = perfect, 0.5 = random.</li>
+<li>**PR-AUC (0.6233)**: Area under Precision-Recall curve. More informative than ROC-AUC for imbalanced datasets.</li>
+<li>**F1 (0.5598)**: Harmonic mean of precision and recall. Balances false positives and false negatives.</li>
+<li>**Precision (0.6154)**: Proportion of predicted defaults that were actual defaults.</li>
+<li>**Recall (0.5134)**: Proportion of actual defaults that were correctly identified.</li>
+<li>**Brier Score (0.2466)**: Measures prediction accuracy. Lower is better.</li>
+</ul>
+<h2>Why Accuracy is Not the Main Metric</h2>
+<p>In credit risk modeling, the target variable is typically imbalanced (most clients don't default). With 90% non-defaults, a model that predicts 'no default' for everyone achieves 90% accuracy but is completely useless.</p>
+<p>PR-AUC is preferred because:</p>
+<ul>
+<li>It focuses on the minority class (defaults)</li>
+<li>It doesn't benefit from predicting the majority class</li>
+<li>It directly measures the trade-off between precision and recall</li>
+</ul>
+<h2>Threshold Selection</h2>
+<table>
+<tr><td>Strategy</td><td>Threshold</td></tr>
+<tr><td>max_f1</td><td>0.330</td></tr>
+<tr><td>target_recall_075</td><td>0.450</td></tr>
+<tr><td>target_precision_060</td><td>0.480</td></tr>
+<tr><td>business_cost</td><td>0.290</td></tr>
+</table>
+<p>**Recommended threshold**: 0.290 (business cost minimization)</p>
+<h3>Business Cost Rationale</h3>
+<ul>
+<li>False negative (missed default): cost = 5 units</li>
+<li>False positive (rejected good client): cost = 1 unit</li>
+<li>Missing a default is 5x more costly than rejecting a good client</li>
+<li>Business cost threshold minimizes total expected loss</li>
+</ul>
+</body>
+</html>
