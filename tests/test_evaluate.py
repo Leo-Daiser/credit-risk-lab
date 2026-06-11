@@ -1,10 +1,8 @@
 """Tests for model evaluation."""
-import numpy as np
-import pytest
 
 from app.data.synthetic_generator import generate_synthetic_data
 from app.models.evaluate import evaluate_model
-from app.models.train import prepare_data, train_models
+from app.models.train import train_models
 
 
 class TestEvaluate:

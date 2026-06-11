@@ -1,8 +1,6 @@
 """Data validation utilities."""
-import json
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 from app.config import get_config
@@ -17,7 +15,6 @@ from app.constants import (
     MIN_LOAN_AMOUNT,
 )
 from app.utils.io import ensure_dir, save_json
-from app.utils.logging import logger
 
 
 def validate_dataset(df: pd.DataFrame, path: str | Path = "", config=None) -> dict:

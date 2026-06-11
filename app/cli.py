@@ -1,8 +1,6 @@
 """Command-line interface using Typer."""
 from pathlib import Path
-from typing import Optional
 
-import pandas as pd
 import typer
 
 from app.config import get_config
@@ -16,7 +14,6 @@ def generate_data(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Generate synthetic credit scoring dataset."""
-    from app.config import get_config
     from app.data.synthetic_generator import generate_synthetic_data
     from app.utils.io import save_csv
     from app.utils.logging import logger
@@ -81,7 +78,6 @@ def validate_data(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Validate dataset for quality issues."""
-    from app.config import get_config
     from app.data.loader import load_dataset
     from app.data.validation import format_validation_report, save_validation_report, validate_dataset
     from app.utils.logging import logger
@@ -114,7 +110,6 @@ def run_eda(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Run Exploratory Data Analysis and generate report."""
-    from app.config import get_config
     from app.data.loader import load_dataset
     from app.reports.eda_report import generate_eda_report
     from app.utils.logging import logger
@@ -137,13 +132,12 @@ def train(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Train models and save the best one."""
-    from app.config import get_config
     from app.data.loader import load_dataset
     from app.models.evaluate import compare_models
     from app.models.train import save_training_artifacts, select_best_model, train_models
     from app.utils.io import save_json
     from app.utils.logging import logger
-    from app.utils.paths import ensure_all_dirs, get_metrics_dir, get_models_dir
+    from app.utils.paths import ensure_all_dirs, get_metrics_dir
     from app.utils.timing import Timer
 
     cfg = get_config(config)
@@ -191,12 +185,10 @@ def evaluate(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Evaluate the best model and save metrics."""
-    from app.config import get_config
     from app.models.evaluate import evaluate_model, get_calibration_data
     from app.utils.io import load_csv, load_json, load_model, save_json
     from app.utils.logging import logger
-    from app.utils.paths import ensure_all_dirs, get_metrics_dir, get_plots_dir, get_reports_dir
-    from app.utils.timing import Timer
+    from app.utils.paths import ensure_all_dirs, get_metrics_dir, get_plots_dir
 
     cfg = get_config(config)
     ensure_all_dirs(cfg)
@@ -215,7 +207,6 @@ def evaluate(
     preprocessor = load_model(Path(cfg.paths.artifacts_models) / "preprocessor.joblib")
 
     # Load test data
-    from app.features.feature_engineering import add_engineered_features
     from app.models.train import prepare_data
     from sklearn.model_selection import train_test_split
 
@@ -269,7 +260,6 @@ def select_threshold(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Select classification threshold."""
-    from app.config import get_config
     from app.models.thresholds import select_all_thresholds
     from app.utils.io import load_csv, load_json, load_model, save_json
     from app.utils.logging import logger
@@ -327,14 +317,13 @@ def explain(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Generate explainability report."""
-    from app.config import get_config
     from app.models.explainability import (
         compute_permutation_importance,
         get_logistic_regression_coefficients,
     )
-    from app.utils.io import load_csv, load_json, load_model, save_json
+    from app.utils.io import load_csv, load_json, load_model
     from app.utils.logging import logger
-    from app.utils.paths import ensure_all_dirs, get_metrics_dir, get_plots_dir, get_reports_dir
+    from app.utils.paths import ensure_all_dirs, get_metrics_dir, get_reports_dir
 
     cfg = get_config(config)
     ensure_all_dirs(cfg)
@@ -416,7 +405,6 @@ def predict(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Make predictions for new data."""
-    from app.config import get_config
     from app.models.predict import predict_from_csv
     from app.utils.logging import logger
     from app.utils.paths import ensure_all_dirs, get_predictions_dir
@@ -434,12 +422,9 @@ def generate_report(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Generate final report with all sections."""
-    from app.config import get_config
-    from app.reports.export import export_to_html
     from app.reports.final_report import generate_final_report
-    from app.utils.io import load_json
     from app.utils.logging import logger
-    from app.utils.paths import ensure_all_dirs, get_reports_dir
+    from app.utils.paths import ensure_all_dirs
 
     cfg = get_config(config)
     ensure_all_dirs(cfg)
@@ -454,7 +439,6 @@ def run_all(
     config: str = typer.Option("configs/fast_debug.yaml", help="Config file path"),
 ) -> None:
     """Run full pipeline."""
-    from app.config import get_config
     from app.utils.logging import logger
     from app.utils.paths import ensure_all_dirs
     from app.utils.timing import Timer
@@ -496,10 +480,8 @@ def audit(
     config: str = typer.Option("configs/default.yaml", help="Config file path"),
 ) -> None:
     """Run technical audit."""
-    from app.config import get_config
     from app.utils.logging import logger
     from app.utils.paths import ensure_all_dirs, get_audit_dir
-    from pathlib import Path
 
     cfg = get_config(config)
     ensure_all_dirs(cfg)

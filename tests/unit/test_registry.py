@@ -1,9 +1,7 @@
 """Unit tests for model registry."""
-import pytest
 
 from app.models.registry import (
     get_available_models,
-    get_model_specs,
     get_search_space,
 )
 

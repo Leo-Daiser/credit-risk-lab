@@ -1,7 +1,6 @@
 """Unit tests for leakage detection."""
 import numpy as np
 import pandas as pd
-import pytest
 
 from app.data.leakage import (
     detect_leakage_columns,

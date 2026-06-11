@@ -1,5 +1,4 @@
 """Tests for model training."""
-import pytest
 
 from app.data.synthetic_generator import generate_synthetic_data
 from app.models.train import prepare_data, train_models

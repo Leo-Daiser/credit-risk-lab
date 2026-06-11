@@ -161,7 +161,7 @@ def plot_feature_importance(
     top_features = importance_df.head(top_n)
 
     fig, ax = plt.subplots(figsize=(10, 8))
-    bars = ax.barh(range(len(top_features)), top_features["importance_mean"].values)
+    ax.barh(range(len(top_features)), top_features["importance_mean"].values)
     ax.set_yticks(range(len(top_features)))
     ax.set_yticklabels(top_features["feature"].values)
     ax.set_xlabel("Importance (mean)")

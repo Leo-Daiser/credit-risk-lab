@@ -1,5 +1,4 @@
 """Prediction module."""
-import numpy as np
 import pandas as pd
 
 from app.config import get_config

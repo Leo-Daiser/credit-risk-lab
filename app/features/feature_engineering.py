@@ -21,8 +21,9 @@ def add_engineered_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     df = df.copy()
 
-    # Safe division functions
-    safe_divide = lambda num, den: np.where(den != 0, num / den, 0.0)
+    # Safe division function
+    def safe_divide(num, den):
+        return np.where(den != 0, num / den, 0.0)
 
     # Loan to income ratio
     if "loan_amount" in df.columns and "income" in df.columns:

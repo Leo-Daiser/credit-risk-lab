@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 
 from app.constants import LEAKAGE_KEYWORDS
-from app.utils.logging import logger
 
 
 def detect_leakage_columns(df: pd.DataFrame, target_col: str = "target") -> list[str]:

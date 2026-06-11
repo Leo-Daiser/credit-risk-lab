@@ -8,9 +8,8 @@ from app.config import get_config
 from app.features.feature_engineering import add_engineered_features
 from app.features.preprocessing import build_preprocessing_pipeline, get_feature_names_after_preprocessing
 from app.models.baseline import get_all_models
-from app.utils.io import save_csv, save_model
+from app.utils.io import save_model
 from app.utils.logging import logger
-from app.utils.random import get_random_state
 
 
 def prepare_data(df: pd.DataFrame, config=None) -> tuple[pd.DataFrame, pd.Series, list[str], list[str]]:
@@ -66,11 +65,9 @@ def train_models(df: pd.DataFrame, config=None) -> dict:
         stratify=y,
     )
 
-    from app.utils.logging import logger
     logger.info(f"Train size: {len(X_train)}, Test size: {len(X_test)}")
 
     # Build preprocessing pipeline
-    from app.features.preprocessing import build_preprocessing_pipeline
     preprocessor = build_preprocessing_pipeline(
         numeric_cols,
         categorical_cols,
@@ -86,11 +83,9 @@ def train_models(df: pd.DataFrame, config=None) -> dict:
     X_test_processed = preprocessor.transform(X_test)
 
     # Get feature names
-    from app.features.preprocessing import get_feature_names_after_preprocessing
     feature_names = get_feature_names_after_preprocessing(preprocessor, all_numeric, all_categorical)
 
     # Train all models
-    from app.models.baseline import get_all_models
     models = get_all_models(seed)
     results = {
         "preprocessor": preprocessor,
@@ -125,7 +120,6 @@ def select_best_model(results: dict) -> tuple[str, object]:
         Tuple of (model_name, model_instance).
     """
     from sklearn.metrics import average_precision_score
-    from app.utils.logging import logger
 
     best_score = -1
     best_name = ""
@@ -158,7 +152,7 @@ def save_training_artifacts(results: dict, best_name: str, best_model: object, o
     Returns:
         Dictionary with saved artifact paths.
     """
-    from app.utils.io import save_json, save_model
+    from app.utils.io import save_json
 
     output_path = Path(output_dir)
     models_dir = output_path

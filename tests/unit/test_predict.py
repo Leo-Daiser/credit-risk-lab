@@ -1,7 +1,5 @@
 """Unit tests for prediction module."""
-import numpy as np
 import pandas as pd
-import pytest
 
 from app.models.explainability import generate_reason_codes
 

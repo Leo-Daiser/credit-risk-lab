@@ -1,9 +1,6 @@
 """Tests for synthetic data generator."""
-import tempfile
-from pathlib import Path
 
 import pandas as pd
-import pytest
 
 from app.data.synthetic_generator import generate_synthetic_data
 

@@ -1,8 +1,6 @@
 """Timing utilities for the Credit Risk Research Lab."""
-import json
 import time
 from pathlib import Path
-from typing import Any
 
 from app.utils.io import save_json
 

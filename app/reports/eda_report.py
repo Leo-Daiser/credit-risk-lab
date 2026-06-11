@@ -4,7 +4,6 @@ from pathlib import Path
 import pandas as pd
 
 from app.config import get_config
-from app.utils.io import ensure_dir
 from app.utils.paths import get_reports_dir
 
 

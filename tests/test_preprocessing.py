@@ -1,7 +1,6 @@
 """Tests for preprocessing pipeline."""
 import numpy as np
 import pandas as pd
-import pytest
 
 from app.features.preprocessing import build_preprocessing_pipeline
 

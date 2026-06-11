@@ -1,6 +1,5 @@
 """Unit tests for data validation."""
 import pandas as pd
-import pytest
 
 from app.data.validation import format_validation_report, validate_dataset
 

@@ -4,7 +4,6 @@ from pathlib import Path
 from app.config import get_config
 from app.reports.export import export_to_html
 from app.utils.io import load_csv, load_json
-from app.utils.logging import logger
 from app.utils.paths import ensure_all_dirs, get_reports_dir
 
 
@@ -132,7 +131,6 @@ def generate_final_report(config=None) -> Path:
     # 13. Calibration
     sections.append("## Calibration\n")
     if "calibration" in metrics:
-        cal = metrics["calibration"]
         sections.append(f"- Brier Score: {metrics.get('brier_score', 'N/A'):.4f}")
         sections.append("- Calibration curve shows model probability estimates\n")
 

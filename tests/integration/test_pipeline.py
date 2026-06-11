@@ -1,9 +1,8 @@
 """Integration tests for training pipeline."""
-import pytest
 
 from app.config import get_config
 from app.data.synthetic_generator import generate_synthetic_data
-from app.models.train import prepare_data, train_models
+from app.models.train import train_models
 
 
 class TestTrainIntegration:

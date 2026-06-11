@@ -1,7 +1,6 @@
 """Unit tests for feature engineering."""
 import numpy as np
 import pandas as pd
-import pytest
 
 from app.features.feature_engineering import add_engineered_features, get_engineered_feature_names
 

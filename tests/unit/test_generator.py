@@ -1,6 +1,5 @@
 """Unit tests for synthetic data generator."""
 import pandas as pd
-import pytest
 
 from app.data.synthetic_generator import generate_synthetic_data
 

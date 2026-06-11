@@ -1,12 +1,10 @@
 """Tests for prediction functionality."""
 import numpy as np
 import pandas as pd
-import pytest
 
 from app.data.synthetic_generator import generate_synthetic_data
-from app.features.feature_engineering import add_engineered_features
 from app.models.explainability import generate_reason_codes
-from app.models.train import prepare_data, train_models
+from app.models.train import train_models
 
 
 class TestPredict:
@@ -20,7 +18,7 @@ class TestPredict:
         model = results["models"]["logistic_regression"]
         proba = model.predict_proba(results["X_test_processed"])[:, 1]
 
-        assert "probability_default" is not None
+        assert "probability_default" != None
         assert len(proba) == len(results["y_test"])
         assert all(0 <= p <= 1 for p in proba)
 

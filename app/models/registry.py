@@ -1,5 +1,4 @@
 """Model registry with hyperparameter search spaces."""
-from typing import Any
 
 from sklearn.ensemble import GradientBoostingClassifier, HistGradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -7,7 +6,6 @@ from sklearn.pipeline import Pipeline
 
 from app.config import get_config
 from app.features.preprocessing import build_preprocessing_pipeline
-from app.utils.random import get_random_state
 
 
 MODEL_CLASSES = {
