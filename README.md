@@ -1,21 +1,21 @@
 # Credit Risk Research Lab
 
-Production-style ML pipeline for credit scoring research. Reproducible, modular, and well-tested on Windows.
+Reproducible credit-risk classification research pipeline using **synthetic data**. Includes preprocessing, threshold analysis, explainability and automated tests; it is an experimental ML project, not a deployed credit-decision system.
 
 ## Why This Project Exists
 
 Credit scoring is a classic imbalanced classification problem where:
-- Default events are rare (typically 5-35% of applications)
-- Missing a default (false negative) costs 5x more than rejecting a good client (false positive)
-- Accuracy is meaningless - a model predicting "no default" for everyone achieves 95% accuracy but is useless
+- The class distribution may be imbalanced, so accuracy alone can be misleading.
+- The supplied **illustrative cost configuration** assumes that a missed default is five times as costly as a false positive; real lending costs vary by product and customer.
+- A majority-class-only model can achieve high accuracy without useful minority-class detection.
 
-This project demonstrates a complete ML pipeline from data generation to deployment-ready predictions, with proper attention to threshold optimization, business costs, and explainability.
+This project demonstrates a local, testable ML experimentation pipeline from data generation to predictions, with attention to threshold optimisation, illustrative business costs and explainability.
 
 ## Installation (Windows PowerShell)
 
 ```powershell
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Leo-Daiser/credit-risk-lab.git
 cd credit_risk_lab
 
 # Create virtual environment
@@ -182,7 +182,7 @@ The pipeline selects thresholds using 4 strategies:
 - **False Negative (missed default)**: Cost = 5 units
 - **False Positive (rejected good client)**: Cost = 1 unit
 
-Missing a default is 5x more costly than rejecting a good client. The business cost threshold minimizes total expected loss.
+In this **toy cost model**, missing a default is assigned five times the cost of rejecting a good applicant. The threshold minimises loss under these assumed costs only.
 
 ### Reason Codes
 
